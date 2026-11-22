@@ -64,4 +64,4 @@ The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 
 
 Beats: the card springs in and the tower draws in copper → the 65 mark and "Pick your floor. / The skyline / comes with it." rise → the elevator rides L → 44 as the rooftops sink and the skyline opens up → studio, one-bedroom and two-bedroom starting rents land → the mobile tab bar rises last, then holds. An address, no-deposit, PATH and phone ticker moves exactly 1px per frame (verified on the encoded file).
 
-`og:url`, the canonical, OG/Twitter images, the video and JSON-LD all use the deploy URL, **https://65-bay.vercel.app/**. At launch, find-and-replace that URL with `https://www.65bay.com/`.
+`og:url`, the canonical, OG/Twitter images, the video and JSON-LD all use the deploy URL, **https://65-bay-tan.vercel.app/**. At launch, find-and-replace that URL with `https://www.65bay.com/`.
