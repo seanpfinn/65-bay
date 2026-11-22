@@ -3170,6 +3170,17 @@ tower.addEventListener('keydown',function(e){
 document.getElementById('up').addEventListener('click',function(){go(target+1)});
 document.getElementById('dn').addEventListener('click',function(){go(target-1)});
 
+/* reserve the readout's tallest state across every floor so the hero never reflows */
+function lockRO(){
+  var keep=roList.innerHTML,seen={},hgt=0;roList.style.minHeight='';
+  for(var f=1;f<=MAXF;f++){var h=list(f);if(seen[h])continue;seen[h]=1;roList.innerHTML=h;hgt=Math.max(hgt,roList.offsetHeight)}
+  roList.innerHTML=keep;roList.style.minHeight=hgt+'px';
+}
+lockRO();
+var rT;function relock(){clearTimeout(rT);rT=setTimeout(lockRO,60)}
+addEventListener('resize',relock);addEventListener('load',relock);
+if(document.fonts){if(document.fonts.ready)document.fonts.ready.then(relock);if(document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',relock)}
+
 /* ---------- stacking plan ---------- */
 var stackEl=document.getElementById('stackEl');
 var rows={};[].forEach.call(stackEl.querySelectorAll('.srow[data-f]'),function(r){rows[r.getAttribute('data-f')]=r});
