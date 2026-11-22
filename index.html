@@ -141,17 +141,32 @@ main>section{overflow-x:clip}
 .hdr .btn{height:42px}
 
 /* hero */
-.hero{background:radial-gradient(120% 80% at 80% 0%,#2c4a68 0%,var(--navy) 55%,#13233c 100%);color:#f3eadf;position:relative;padding:clamp(40px,6vw,80px) 0 clamp(56px,7vw,96px)}
-.hero::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.5;pointer-events:none}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:1}
-.hero-copy{min-width:0}
+.hero{position:relative;color:#f4efe7;background:#13233c;min-height:clamp(560px,calc(100svh - 110px),860px);display:flex;align-items:flex-end;padding:var(--s7) 0 var(--s6);overflow:hidden}
+.hero-media{position:absolute;inset:0;overflow:hidden}
+.hero-media>.ph{position:absolute;inset:0;width:100%;height:100%;border-radius:0}
+.hero-media>iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:0;pointer-events:none}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,26,46,.92) 0%,rgba(13,26,46,.55) 38%,rgba(13,26,46,.12) 72%,rgba(13,26,46,.3) 100%),linear-gradient(90deg,rgba(13,26,46,.55),rgba(13,26,46,0) 62%)}
+.hero::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.35;pointer-events:none}
+.hero-in{position:relative;z-index:2;width:100%}
+.hero-in .eyebrow,.hero-in .h1,.hero-in .lede{text-shadow:0 2px 24px rgba(13,26,46,.55)}
 .hero .eyebrow{color:var(--cu-hi)}
-.h1{font-size:clamp(42px,4.8vw,64px);margin-top:var(--s2);font-weight:400;line-height:1.04}
+.h1{font-size:clamp(48px,6.4vw,96px);margin-top:var(--s1);font-weight:400;line-height:1.02}
 .h1 .ln{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
 .h1 .ln>span{display:block}
+.h1 .ln:last-child{margin-bottom:0}
 .h1 em{font:italic 400 1em/1 var(--script);color:var(--cu-hi)}
-.hero .lede{color:#c4ccd8;margin-top:var(--s4)}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s5)}
+.hero .lede{color:#dfe4ec;margin-top:var(--s3);max-width:52ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4)}
+.hero-cap{position:absolute;z-index:2;right:var(--gut);bottom:var(--s4);font:500 13px var(--sans);letter-spacing:.06em;color:#dfe4ec;opacity:.85}
+/* view previewer (formerly the hero) */
+.view{background:radial-gradient(120% 80% at 80% 0%,#2c4a68 0%,var(--navy) 55%,#13233c 100%);color:#f3eadf;position:relative}
+.view::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.5;pointer-events:none}
+.view-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,72px);align-items:start;position:relative;z-index:1}
+.view-copy{position:sticky;top:120px;padding-top:var(--s5)}
+.view-copy{min-width:0}
+.view .eyebrow{color:var(--cu-hi)}
+.view .h2 em{color:var(--cu-hi)}
+.view .lede{color:#c4ccd8}
 .chips{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s5)}
 .chips p{width:100%;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute-d);margin-bottom:var(--s1)}
 .chip{border:1px solid rgba(201,165,122,.35);background:rgba(255,255,255,.03);border-radius:999px;height:40px;padding:0 var(--s3);font-size:14px;color:#f3eadf;transition:background .2s,border-color .2s}
@@ -376,7 +391,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cu);outline-offs
 .film-frame{position:relative;margin-top:var(--s5);aspect-ratio:21/9;border-radius:22px;overflow:hidden;background:#0d1a2e url() center/cover;border:1px solid var(--line-d)}
 .film-frame>.ph,.film-frame>iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:0;pointer-events:none}
 .film-frame>.ph{width:100%;height:100%;border-radius:0}
-.amen{padding-top:0}
 .film-frame::before,.film-frame::after{content:"";position:absolute;z-index:2;background:linear-gradient(180deg,#d4b083,#94703f);pointer-events:none}
 .film-frame::before{left:50%;top:0;bottom:0;width:6px;margin-left:-3px;opacity:.9}
 .film-frame::after{left:0;right:0;bottom:14%;height:5px;opacity:.9}
@@ -406,12 +420,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cu);outline-offs
   .nav,.strip .links,.hdr .tel{display:none}
   .hdr .wrap{height:64px}
   .brand svg{height:24px}
-  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:0}
-  .hero-copy{display:contents}
-  .hero .eyebrow{order:1}.h1{order:2}.hero .lede{order:3}.lift{order:4;margin-top:var(--s5)}.chips{order:5}.trust{order:6}
-  .hero-ctas{display:none}
+  .view-grid{grid-template-columns:minmax(0,1fr);gap:var(--s5)}
+  .view .hero-ctas,.hero .hero-ctas{display:none}
+  .hero{min-height:calc(100svh - 102px);padding:var(--s6) 0 calc(96px + env(safe-area-inset-bottom))}
+  .hero-shade{background:linear-gradient(0deg,rgba(13,26,46,.95) 0%,rgba(13,26,46,.7) 45%,rgba(13,26,46,.15) 80%,rgba(13,26,46,.35) 100%)}
+  .view-copy{position:static;padding-top:0}
+  .hero-cap{display:none}
   .hdr .btn{display:none}
-  .trust{display:none}
+  .view .trust{margin-top:var(--s4)}
   .chips{flex-wrap:nowrap;overflow-x:auto;margin:var(--s4) calc(-1*var(--gut)) 0;padding:0 var(--gut);scroll-padding-inline:var(--gut);scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
   .chips p{display:none}
@@ -421,8 +437,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cu);outline-offs
   .nb{flex:0 0 80%;scroll-snap-align:start}
   .stack-grid,.amen-grid,.inhome,.faq-grid,.visit-grid{grid-template-columns:minmax(0,1fr)}
   .tower2{position:relative;top:0}
-  .film-frame{aspect-ratio:4/5}
-  .film-frame::before{display:none}
   .wide{aspect-ratio:16/9}
   .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:var(--s5) calc(-1*var(--gut)) 0;padding:0 var(--gut);scroll-padding-inline:var(--gut);scrollbar-width:none}
   .gal::-webkit-scrollbar{display:none}
@@ -477,7 +491,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cu);outline-offs
   .ruler{margin-top:var(--s5)}
   .proof ul{padding:var(--s5) 0;row-gap:var(--s4)}
   .proof span{font-size:13px}
-  .film-frame{aspect-ratio:1/1}
   .side .ph{aspect-ratio:16/10}
   .panel{margin-top:var(--s4)}
   .tabs{margin-top:var(--s4)}
@@ -500,15 +513,17 @@ html.js .hdr{transform:translateY(-100%)}
 html.js .h1 .ln>span{transform:translateY(110%)}
 html.js .fade{opacity:0;transform:translateY(16px)}
 html.js .lift{opacity:0;transform:translateY(40px) scale(.96)}
+html.js .hero-media{opacity:0;transform:scale(1.06)}
+html.ready .hero-media{opacity:1;transform:none;transition:opacity 1.2s ease,transform 2.4s var(--ease)}
 html.js .tower .tl{stroke-dasharray:800;stroke-dashoffset:800}
 html.ready .hdr{transform:none;transition:transform .7s var(--ease)}
 html.ready .h1 .ln>span{transform:none;transition:transform 1s var(--ease) calc(.15s + var(--d,0s))}
 html.ready .fade{opacity:1;transform:none;transition:opacity .7s ease calc(.45s + var(--d,0s)),transform .7s var(--ease) calc(.45s + var(--d,0s))}
-html.ready .lift{opacity:1;transform:none;transition:opacity .6s ease .55s,transform 1s var(--spring) .55s}
-html.ready .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease) .8s}
+html.js .view.go .lift{opacity:1;transform:none;transition:opacity .6s ease,transform 1s var(--spring)}
+html.js .view.go .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease) .25s}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  html.js .hdr,html.js .h1 .ln>span,html.js .fade,html.js .lift{transform:none!important;opacity:1!important;transition:none!important}
+  html.js .hdr,html.js .h1 .ln>span,html.js .fade,html.js .lift,html.js .hero-media{transform:none!important;opacity:1!important;transition:none!important}
   html.js .tower .tl{stroke-dashoffset:0!important;transition:none!important}
   html.js .tabbar,html.js .tabbar>*{transform:none!important;opacity:1!important;transition:none!important}
   .blink,.ferry{animation:none}
@@ -523,23 +538,144 @@ html.ready .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(
 <header class="hdr">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="65 Bay Street, home"><svg viewBox="0.7 0.5 311.7 43.3" role="img" aria-hidden="true"><use href="#brand-logo"/></svg></a>
-    <nav class="nav" aria-label="Main"><a href="#stack">Floors &amp; rents</a><a href="#homes">Homes</a><a href="#amenities">Amenities</a><a href="#neighborhood">Neighborhood</a><a href="#visit">Visit</a></nav>
+    <nav class="nav" aria-label="Main"><a href="#amenities">Amenities</a><a href="#homes">Homes</a><a href="#neighborhood">Neighborhood</a><a href="#view">Floors &amp; rents</a><a href="#visit">Visit</a></nav>
     <div class="hdr-cta"><a class="tel" href="tel:+18559991087">(855) 999-1087</a><a class="btn btn-cu" href="#visit">Book a tour</a></div>
   </div>
 </header>
 
 <main id="main">
 <section class="hero" id="top" aria-labelledby="h1">
-  <div class="wrap">
-    <div class="hero-copy">
-      <p class="eyebrow fade" style="--d:0s">Welcome to 65 Bay Street</p>
-      <h1 class="h1" id="h1"><span class="ln"><span>Pick your floor.</span></span><span class="ln"><span style="--d:.1s"><em>The skyline</em></span></span><span class="ln"><span style="--d:.2s">comes with it.</span></span></h1>
-      <p class="lede fade" style="--d:.1s">Studio, one- and two-bedroom rentals on floors 3 to 51, half a mile from the Exchange Place PATH. Floor-to-ceiling windows in select homes look across the Hudson to Manhattan.</p>
-      <div class="hero-ctas fade" style="--d:.2s"><a class="btn btn-cu" href="#visit">Book a tour</a><a class="btn btn-ghost" href="#stack">See every floor</a></div>
-      <div class="chips fade" style="--d:.3s"><p>Who's moving in?</p><button class="chip" type="button" data-go="solo">Just me</button><button class="chip" type="button" data-go="office">I work from home</button><button class="chip" type="button" data-go="two">Room for two</button><button class="chip" type="button" data-go="dog">My dog's coming</button></div>
-      <ul class="trust fade" style="--d:.4s"><li>No security deposit</li><li>24-hour attended lobby</li><li>Walk Score 95</li></ul>
-    </div>
+  <div class="hero-media" id="heroMedia" data-vimeo="1177828601" aria-hidden="true">
+    <figure class="ph hero-poster"><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:9,w_1600/s3/2/84594/tbs_pool%20website.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:9,w_800/s3/2/84594/tbs_pool%20website.jpg 800w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:9,w_1600/s3/2/84594/tbs_pool%20website.jpg 1600w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:9,w_2400/s3/2/84594/tbs_pool%20website.jpg 2400w" sizes="(max-width: 980px) 90vw, 1600px" width="1600" height="900" alt="" fetchpriority="high"></figure>
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow fade" style="--d:0s">Welcome to 65 Bay Street</p>
+    <h1 class="h1" id="h1"><span class="ln"><span><em>Experience</em></span></span><span class="ln"><span style="--d:.1s">Jersey City living.</span></span></h1>
+    <p class="lede fade" style="--d:.1s">A pool deck, a rooftop lounge and a lobby that's attended around the clock, half a mile from the Exchange Place PATH. Studio, one- and two-bedroom homes on floors 3 to 51.</p>
+    <div class="hero-ctas fade" style="--d:.2s"><a class="btn btn-cu" href="#visit">Book a tour</a><a class="btn btn-ghost" href="#view">Pick your floor</a></div>
+    <div class="chips fade" style="--d:.3s"><p>Who's moving in?</p><button class="chip" type="button" data-go="solo">Just me</button><button class="chip" type="button" data-go="office">I work from home</button><button class="chip" type="button" data-go="two">Room for two</button><button class="chip" type="button" data-go="dog">My dog's coming</button></div>
+  </div>
+  <p class="hero-cap fade" style="--d:.5s">The pool deck at 65 Bay Street</p>
+</section>
 
+
+<section class="proof" aria-label="At a glance">
+  <div class="wrap"><ul>
+    <li><b>$0</b><span>Security deposit. <a href="http://go.jetty.com/move">How Jetty works</a></span></li>
+    <li><b>0.5 mi</b><span>to Exchange Place PATH, about 7 minutes to downtown Manhattan</span></li>
+    <li><b>95</b><span>Walk Score: errands on foot, CVS and coffee downstairs</span></li>
+    <li><b>24 hr</b><span>Attended lobby, doorman and a live-in superintendent</span></li>
+  </ul></div>
+</section>
+
+<section class="sec amen" id="amenities" aria-labelledby="amenH">
+  <div class="wrap">
+    <p class="eyebrow">Signature amenities</p>
+    <h2 class="h2" id="amenH">The rest of the building <em>is yours, too.</em></h2>
+    <div class="amen-grid">
+      <div class="plate"><div class="plate-in">
+        <p class="plate-top"><span>65 Bay · Residents</span><i aria-hidden="true"></i></p>
+        <div class="btns" role="tablist" aria-label="Amenities">
+          <button class="lbtn" role="tab" id="ab-roof" aria-controls="ap-roof" aria-selected="true"><span class="ring"><span class="face">R</span></span>Roof</button>
+          <button class="lbtn" role="tab" id="ab-pool" aria-controls="ap-pool" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">P</span></span>Pool deck</button>
+          <button class="lbtn" role="tab" id="ab-well" aria-controls="ap-well" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">W</span></span>Wellness</button>
+          <button class="lbtn" role="tab" id="ab-play" aria-controls="ap-play" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">G</span></span>Games &amp; play</button>
+          <button class="lbtn" role="tab" id="ab-dogs" aria-controls="ap-dogs" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">D</span></span>Dogs</button>
+          <button class="lbtn" role="tab" id="ab-desk" aria-controls="ap-desk" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">L</span></span>Lobby &amp; service</button>
+          <button class="lbtn" role="tab" id="ab-park" aria-controls="ap-park" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">B</span></span>Parking &amp; storage</button>
+          <button class="lbtn" role="tab" id="ab-shop" aria-controls="ap-shop" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">S</span></span>Shops on site</button>
+        </div>
+      </div></div>
+      <div>
+        <div class="apanel" role="tabpanel" id="ap-roof" aria-labelledby="ab-roof" tabindex="0"><h3>Rooftop observation lounge</h3><p>An indoor lounge with an outdoor terrace at the top of the tower, with views up and down the Hudson.</p><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-16%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/shoootin-photo-16%281%29.jpg 450w, https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-16%281%29.jpg 900w, https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/shoootin-photo-16%281%29.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The rooftop observation lounge with dark sofas and a large painting" loading="lazy" decoding="async"><figcaption>Roof lounge</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20views.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20views.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20views.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20views.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="A view from the building past a potted plant" loading="lazy" decoding="async"><figcaption>The view</figcaption></figure></div></div>
+        <div class="apanel" role="tabpanel" id="ap-pool" aria-labelledby="ab-pool" tabindex="0" hidden><h3>Pool deck</h3><p>A resort-style swimming pool and Jacuzzi with a pergola, plus a fire pit, BBQ grill and outdoor dining.</p><ul><li>Swimming pool &amp; Jacuzzi</li><li>Fire pit</li><li>BBQ grill</li><li>Outdoor dining</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_pool%20website.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/tbs_pool%20website.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_pool%20website.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/tbs_pool%20website.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The pool surrounded by lounge chairs and umbrellas" loading="lazy" decoding="async"><figcaption>Pool</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20pool%203%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20pool%203%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20pool%203%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20pool%203%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The pool deck with chairs and a pergola" loading="lazy" decoding="async"><figcaption>Pergola</figcaption></figure></div></div>
+        <div class="apanel" role="tabpanel" id="ap-well" aria-labelledby="ab-well" tabindex="0" hidden><h3>Wellness</h3><p>A fitness center with free weights, a wood-lined sauna and a spa treatment room.</p><ul><li>Fitness center</li><li>Free weights</li><li>Sauna</li><li>Spa treatment room</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The fitness center" loading="lazy" decoding="async"><figcaption>Fitness center</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20sauna%201%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20sauna%201%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20sauna%201%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20sauna%201%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The wood-lined sauna" loading="lazy" decoding="async"><figcaption>Sauna</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20massage.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20massage.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20massage.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20massage.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The spa treatment room" loading="lazy" decoding="async"><figcaption>Treatment room</figcaption></figure></div></div>
+        <div class="apanel" role="tabpanel" id="ap-play" aria-labelledby="ab-play" tabindex="0" hidden><h3>Games &amp; play</h3><p>A screening room, a sports parlor for the game, a pool table, and a playroom where the kids can draw on the walls (the whiteboard ones).</p><ul><li>Sports parlor</li><li>Screening room</li><li>Game room with pool table</li><li>Playroom</li><li>Resident lounges</li></ul><a class="tour" href="https://my.matterport.com/show/?m=WL6VeTAUFxF" target="_blank" rel="noopener">Walk the screening room in 3D <span aria-hidden="true">↗</span></a><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65baymcap001%281%29.jpeg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/65baymcap001%281%29.jpeg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65baymcap001%281%29.jpeg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/65baymcap001%281%29.jpeg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The sports parlor with a large couch and TV" loading="lazy" decoding="async"><figcaption>Sports parlor</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/game%20room%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/game%20room%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/game%20room%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/game%20room%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The game room with a pool table" loading="lazy" decoding="async"><figcaption>Game room</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-10.jpg" srcset="https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/shoootin-photo-10.jpg 320w, https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-10.jpg 560w, https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/shoootin-photo-10.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The playroom with a whiteboard and blue walls" loading="lazy" decoding="async"><figcaption>Playroom</figcaption></figure></div></div>
+        <div class="apanel" role="tabpanel" id="ap-dogs" aria-labelledby="ab-dogs" tabindex="0" hidden><h3>Dogs</h3><p>A dog spa for baths and an indoor dog park for rainy days.</p><ul><li>Dog spa</li><li>Indoor dog park</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-2%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/shoootin-photo-2%281%29.jpg 450w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-2%281%29.jpg 900w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/shoootin-photo-2%281%29.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The indoor dog park with a white fence and green turf" loading="lazy" decoding="async"><figcaption>Indoor dog park</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-3%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/shoootin-photo-3%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-3%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/shoootin-photo-3%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The dog spa with a pink cabinet and wash basin" loading="lazy" decoding="async"><figcaption>Dog spa</figcaption></figure></div></div>
+        <div class="apanel" role="tabpanel" id="ap-desk" aria-labelledby="ab-desk" tabindex="0" hidden><h3>Lobby &amp; service</h3><p>Someone is at the desk around the clock, and maintenance and management are in the building.</p><ul><li>24-hour attended lobby</li><li>Doorman services</li><li>Live-in superintendent</li><li>On-site management</li><li>On-site maintenance</li><li>On-site dry cleaning</li><li>Laundry facility</li><li>Online resident portal</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_lobby.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/tbs_lobby.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_lobby.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/tbs_lobby.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The lobby lounge with grey sofas, a fireplace and a chandelier" loading="lazy" decoding="async"><figcaption>Lobby</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-1%282%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/shoootin-photo-1%282%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-1%282%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/shoootin-photo-1%282%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="A resident lounge with grey and gold accents" loading="lazy" decoding="async"><figcaption>Resident lounge</figcaption></figure></div></div>
+        <div class="apanel" role="tabpanel" id="ap-park" aria-labelledby="ab-park" tabindex="0" hidden><h3>Parking &amp; storage</h3><p>Discounted covered parking in the garage, EV parking, and room for the things that don't fit upstairs.</p><ul><li>Garage, discounted covered parking</li><li>EV parking</li><li>Resident storage</li><li>Bicycle storage</li><li>Cold storage for deliveries</li><li>Elevators</li></ul></div>
+        <div class="apanel" role="tabpanel" id="ap-shop" aria-labelledby="ab-shop" tabindex="0" hidden><h3>Shops on site</h3><p>Retail on the ground floor covers the daily errands.</p><ul><li><a href="https://www.cvs.com/store-locator/cvs-pharmacy-address/88+Morgan+Street-Jersey+City-NJ-07302/storeid=11088">CVS Pharmacy</a></li><li><a href="https://www.maggiesfarmespresso.com/">Maggie's Farm Espresso</a></li><li><a href="https://f45training.com/exchangeplacejerseycity/home">F45 Training</a></li><li><a href="https://www.cyclebar.com/location/jersey-city">Cyclebar</a></li><li><a href="https://www.coastalcleanersusa.com/">Coastal Cleaners</a></li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_hero%20night.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/tbs_hero%20night.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_hero%20night.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/tbs_hero%20night.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="65 Bay Street lit up at night" loading="lazy" decoding="async"><figcaption>65 Bay Street at night</figcaption></figure></div></div>
+      </div>
+    </div>
+    <div class="inhome">
+      <div><h3>Inside every home</h3><p class="lede" style="margin-top:var(--s2)">Standard finishes in the apartments. Some homes add a little more.</p></div>
+      <ul><li>Washer &amp; dryer</li><li>Walk-in closets</li><li>Hardwood plank flooring</li><li>Granite countertops</li><li>Energy-efficient stainless-steel appliances</li><li>Refrigerator with icemaker &amp; filtered water</li><li>Dishwasher</li><li>Recessed lighting</li><li>LED under-cabinet lighting</li><li>Window treatments</li><li>Floor-to-ceiling windows<i>select</i></li><li>Private patio<i>select</i></li><li>High ceilings<i>select</i></li></ul>
+    </div>
+    <div class="gal"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/4-65_bay_st_living_dining_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/4-65_bay_st_living_dining_staged.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/4-65_bay_st_living_dining_staged.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/4-65_bay_st_living_dining_staged.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="An open kitchen with white cabinets and a large island" loading="lazy" decoding="async"><figcaption>Kitchen & living</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20kitchen%201.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20kitchen%201.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20kitchen%201.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20kitchen%201.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A kitchen with stainless-steel appliances" loading="lazy" decoding="async"><figcaption>Stainless appliances</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20living%205.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20living%205.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20living%205.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20living%205.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A living room with a white sofa and table" loading="lazy" decoding="async"><figcaption>Living room</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20bathroom%201.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20bathroom%201.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20bathroom%201.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20bathroom%201.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A white bathroom" loading="lazy" decoding="async"><figcaption>Bath</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A walk-in closet with shelves" loading="lazy" decoding="async"><figcaption>Walk-in closet</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="An in-home washer and dryer" loading="lazy" decoding="async"><figcaption>Washer & dryer</figcaption></figure></div>
+  </div>
+</section>
+
+<section class="sec homes" id="homes" aria-labelledby="homesH">
+  <div class="wrap">
+    <p class="eyebrow">Find your fit</p>
+    <h2 class="h2" id="homesH">Start with <em>how you'll live.</em></h2>
+    <div class="tabs" role="tablist" aria-label="Who's moving in">
+      <button class="tab" role="tab" id="tab-solo" aria-controls="p-solo" aria-selected="true">Just me</button>
+      <button class="tab" role="tab" id="tab-office" aria-controls="p-office" aria-selected="false" tabindex="-1">I work from home</button>
+      <button class="tab" role="tab" id="tab-two" aria-controls="p-two" aria-selected="false" tabindex="-1">Room for two</button>
+      <button class="tab" role="tab" id="tab-dog" aria-controls="p-dog" aria-selected="false" tabindex="-1">My dog's coming</button>
+    </div>
+    <div class="panel" role="tabpanel" id="p-solo" aria-labelledby="tab-solo" tabindex="0">
+      <div><h3>A studio or a one-bedroom, 546 to 794 sq ft.</h3><p>Open layouts with hardwood plank floors, a washer and dryer in every home, and walk-in closets. Studios run from floor 8 up to 51.</p><ul class="mini"><li><a href="https://www.65bay.com/floorplans/0-br-1-ba-res-10%3a-fl-8---44%2c-50---51"><span class="mn-n">Studio<small>546 sq&nbsp;ft · Res 10 · floors 8–44, 50–51</small></span><span class="mn-p">from $3,258</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-res-01-%26-09%3a-fl-8---44"><span class="mn-n">One bedroom<small>685 sq&nbsp;ft · Res 01 & 09 · floors 8–44</small></span><span class="mn-p">from $3,709</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-res-02-%26-08%3a-fl-8---44"><span class="mn-n">One bedroom<small>794 sq&nbsp;ft · Res 02 & 08 · floors 8–44</small></span><span class="mn-p">from $4,237</span></a></li></ul></div>
+      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/65%20bay%20living%203.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/65%20bay%20living%203.jpg 380w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/65%20bay%20living%203.jpg 760w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/65%20bay%20living%203.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="A living room with a white sofa and city light" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Everything's downstairs.</b> CVS, Maggie's Farm Espresso and Coastal Cleaners are on site.</li><li><b>Packages and groceries</b> wait in on-site cold storage.</li><li><b>Pre-qualify online</b> in a minute; it won't affect your credit score.</li></ul></div></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-office" aria-labelledby="tab-office" tabindex="0" hidden>
+      <div><h3>One bedroom, plus a room for the laptop.</h3><p>Three one-bedroom-with-office layouts from about 800 to 1,092 sq ft, from floor 3 up to 48.</p><ul class="mini"><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-w%2foffice-res-03-%26-07%3a-fl-3---48"><span class="mn-n">One bedroom + office<small>797–801 sq&nbsp;ft · Res 03 & 07 · floors 3–48</small></span><span class="mn-p">from $4,077</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-w%2foffice-res-06%3a-fl-3---6"><span class="mn-n">One bedroom + office<small>911 sq&nbsp;ft · Res 06 · floors 3–6</small></span><span class="mn-p">from $4,224</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-w%2foffice-res-07%3a-fl-3---6"><span class="mn-n">One bedroom + office<small>1,092 sq&nbsp;ft · Res 07 · floors 3–6</small></span><span class="mn-p">from $4,913</span></a></li></ul></div>
+      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/3-65_bay_st_library_office_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/3-65_bay_st_library_office_staged.jpg 380w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/3-65_bay_st_library_office_staged.jpg 760w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/3-65_bay_st_library_office_staged.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="A home office with a desk, chair and shelves" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Discounted internet and cable</b> through the building's amenity services.</li><li><b>Coffee downstairs</b> at Maggie's Farm Espresso.</li><li><b>Workouts on site:</b> the fitness center, plus F45 and Cyclebar in the building.</li></ul></div></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-two" aria-labelledby="tab-two" tabindex="0" hidden>
+      <div><h3>Two bedrooms, two baths, up to 1,181 sq ft.</h3><p>Corner-stack two-bedrooms from floor 9 to 48. A playroom, a game room and a sports parlor are downstairs.</p><ul class="mini"><li><a href="https://www.65bay.com/floorplans/2-br-2-ba-res-04-%26-06%3a-fl-9---47"><span class="mn-n">Two bedroom, two bath<small>1,181 sq&nbsp;ft · Res 04 & 06 · floors 9–47</small></span><span class="mn-p">from $5,741</span></a></li><li><a href="https://www.65bay.com/floorplans/2-br-2-ba-res-06%3a-fl-48"><span class="mn-n">Two bedroom, two bath<small>1,133 sq&nbsp;ft · Res 06 · floor 48 · floors 48</small></span><span class="mn-p">from $6,443</span></a></li></ul></div>
+      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/1-65_bay_st_bedroom_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/1-65_bay_st_bedroom_staged.jpg 380w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/1-65_bay_st_bedroom_staged.jpg 760w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/1-65_bay_st_bedroom_staged.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="A bedroom with a large bed beside the windows" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Discounted covered parking</b> in the garage, with EV parking.</li><li><b>Resident and bicycle storage</b> on site.</li><li><b>Unfurnished only.</b> Bring your own pieces.</li></ul></div></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p-dog" aria-labelledby="tab-dog" tabindex="0" hidden>
+      <div><h3>Cats and dogs welcome. Up to two.</h3><p>Every pet is pre-approved: house trained, with a recent veterinarian statement of good health and a photo. Some breeds are restricted, so ask before you apply.</p>
+        <ul class="mini"><li><a href="#faq"><span class="mn-n">Pet fee<small>One time, per pet, non-refundable</small></span><span class="mn-p">$500</span></a></li><li><a href="#faq"><span class="mn-n">Pet rent<small>Monthly, per pet</small></span><span class="mn-p">$50</span></a></li></ul></div>
+      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/shoootin-photo-2%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/shoootin-photo-2%281%29.jpg 380w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/shoootin-photo-2%281%29.jpg 760w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/shoootin-photo-2%281%29.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="The indoor dog park with a white fence and green turf" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Dog spa</b> for the muddy days.</li><li><b>Indoor dog park</b> when it's pouring.</li><li><b>The Hudson River Waterfront Walkway</b> is half a mile away.</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="neighborhood" aria-labelledby="nbH">
+  <div class="wrap">
+    <p class="eyebrow">Steps from downtown</p>
+    <h2 class="h2" id="nbH">Half a mile <em>to the PATH.</em></h2>
+    <p class="lede">65 Bay Street sits between Exchange Place and Grove Street, a few blocks from the river. Distances are from the front door.</p>
+    <div class="ruler" role="img" aria-label="Distances from 65 Bay Street: Exchange Place PATH 0.5 miles, Hudson River Waterfront Walkway 0.5 miles, Grove Street 1 mile, Liberty State Park 2.5 miles.">
+      <div class="ruler-track" aria-hidden="true">
+        <div class="ruler-line"></div>
+        <div class="tick" style="left:0"><span>0</span></div><div class="tick" style="left:20%"><span>0.5 mi</span></div><div class="tick" style="left:40%"><span>1</span></div><div class="tick" style="left:60%"><span>1.5</span></div><div class="tick" style="left:80%"><span>2</span></div><div class="tick" style="left:100%"><span>2.5 mi</span></div>
+        <div class="stop home" style="left:0"><b>65</b><span>Bay Street</span></div>
+        <div class="stop" style="left:20%"><b>0.5</b><span>Exchange Place PATH · Waterfront Walkway</span></div>
+        <div class="stop" style="left:40%"><b>1</b><span>Grove Street</span></div>
+        <div class="stop end" style="left:100%"><b>2.5</b><span>Liberty State Park</span></div>
+      </div>
+      <p class="ruler-off">Newark Liberty International Airport: about 11 mi →</p>
+    </div>
+    <figure class="ph wide"><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_1600/s3/2/84594/tbs_view%201.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_800/s3/2/84594/tbs_view%201.jpg 800w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_1600/s3/2/84594/tbs_view%201.jpg 1600w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_2400/s3/2/84594/tbs_view%201.jpg 2400w" sizes="(max-width: 980px) 90vw, 1600px" width="1600" height="610" alt="The Hudson River seen from 65 Bay Street" loading="lazy" decoding="async"><figcaption>The view across the Hudson</figcaption></figure>
+    <div class="nb-cards">
+      <div class="nb"><h3>Into Manhattan</h3><p>Exchange Place PATH is about a 7-minute ride to downtown Manhattan. NJ Transit Light Rail and buses are nearby, and Lower Manhattan is a short ferry ride away.</p></div>
+      <div class="nb"><h3>By car</h3><p>Quick access to I-78, the New Jersey Turnpike and Route 440, with discounted covered parking and EV parking in the building's garage.</p></div>
+      <div class="nb"><h3>On foot</h3><p>A Walk Score of 95. Paulus Hook and Grove Street boutiques, waterfront parks, and Newport Centre's Macy's, H&amp;M and Sephora.</p></div>
+    </div>
+    <div class="places">
+      <div><h3>Food &amp; drink</h3><ul><li>Battello</li><li>DOMODOMO Jersey City</li><li>Luna Restaurant</li><li>Porta</li><li>Razza</li><li>The Kitchen Step</li></ul></div>
+      <div><h3>Parks</h3><ul><li>Hamilton Park</li><li>J. Owen Grundy Park</li><li>Liberty State Park</li><li>Newport Green Park</li><li>Van Vorst Park</li><li>Lincoln Park</li></ul></div>
+      <div><h3>Shops</h3><ul><li>Newport Centre</li><li>Target</li><li>Acme Markets</li><li>ShopRite of Metro Plaza</li><li>Best Buy</li><li>BJ's Wholesale Club</li></ul></div>
+      <div><h3>Culture</h3><ul><li>Liberty Science Center</li><li>White Eagle Hall</li><li>Jersey City Theater Center</li><li>Nimbus Arts Center</li><li>AMC Newport Centre 11</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec view" id="view" aria-labelledby="viewH">
+  <div class="wrap view-grid">
+    <div class="view-copy">
+      <p class="eyebrow">Pick your floor</p>
+      <h2 class="h2" id="viewH">The skyline <em>comes with it.</em></h2>
+      <p class="lede">Ride the elevator from the lobby to the roof. The view rises with you, and the list below shows the floor plans on each floor with starting rents and 3D tours.</p>
+      <ul class="trust"><li>Floor-to-ceiling windows in select homes</li><li>Floors 3 to 51</li><li>No security deposit</li></ul>
+      <div class="hero-ctas"><a class="btn btn-cu" href="#visit">Book a tour</a><a class="btn btn-ghost" href="#stack">See every floor</a></div>
+    </div>
     <figure class="lift" aria-labelledby="liftCap">
       <div class="lift-card">
         <div class="tower-col">
@@ -1993,15 +2129,6 @@ html.ready .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(
   </div>
 </section>
 
-<section class="proof" aria-label="At a glance">
-  <div class="wrap"><ul>
-    <li><b>$0</b><span>Security deposit. <a href="http://go.jetty.com/move">How Jetty works</a></span></li>
-    <li><b>0.5 mi</b><span>to Exchange Place PATH, about 7 minutes to downtown Manhattan</span></li>
-    <li><b>95</b><span>Walk Score: errands on foot, CVS and coffee downstairs</span></li>
-    <li><b>24 hr</b><span>Attended lobby, doorman and a live-in superintendent</span></li>
-  </ul></div>
-</section>
-
 <section class="sec" id="stack" aria-labelledby="stackH">
   <div class="wrap">
     <p class="eyebrow">Where every detail matters</p>
@@ -2149,116 +2276,9 @@ html.ready .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(
   </div>
 </section>
 
-<section class="sec homes" id="homes" aria-labelledby="homesH">
-  <div class="wrap">
-    <p class="eyebrow">Find your fit</p>
-    <h2 class="h2" id="homesH">Start with <em>how you'll live.</em></h2>
-    <div class="tabs" role="tablist" aria-label="Who's moving in">
-      <button class="tab" role="tab" id="tab-solo" aria-controls="p-solo" aria-selected="true">Just me</button>
-      <button class="tab" role="tab" id="tab-office" aria-controls="p-office" aria-selected="false" tabindex="-1">I work from home</button>
-      <button class="tab" role="tab" id="tab-two" aria-controls="p-two" aria-selected="false" tabindex="-1">Room for two</button>
-      <button class="tab" role="tab" id="tab-dog" aria-controls="p-dog" aria-selected="false" tabindex="-1">My dog's coming</button>
-    </div>
-    <div class="panel" role="tabpanel" id="p-solo" aria-labelledby="tab-solo" tabindex="0">
-      <div><h3>A studio or a one-bedroom, 546 to 794 sq ft.</h3><p>Open layouts with hardwood plank floors, a washer and dryer in every home, and walk-in closets. Studios run from floor 8 up to 51.</p><ul class="mini"><li><a href="https://www.65bay.com/floorplans/0-br-1-ba-res-10%3a-fl-8---44%2c-50---51"><span class="mn-n">Studio<small>546 sq&nbsp;ft · Res 10 · floors 8–44, 50–51</small></span><span class="mn-p">from $3,258</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-res-01-%26-09%3a-fl-8---44"><span class="mn-n">One bedroom<small>685 sq&nbsp;ft · Res 01 & 09 · floors 8–44</small></span><span class="mn-p">from $3,709</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-res-02-%26-08%3a-fl-8---44"><span class="mn-n">One bedroom<small>794 sq&nbsp;ft · Res 02 & 08 · floors 8–44</small></span><span class="mn-p">from $4,237</span></a></li></ul></div>
-      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/65%20bay%20living%203.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/65%20bay%20living%203.jpg 380w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/65%20bay%20living%203.jpg 760w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/65%20bay%20living%203.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="A living room with a white sofa and city light" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Everything's downstairs.</b> CVS, Maggie's Farm Espresso and Coastal Cleaners are on site.</li><li><b>Packages and groceries</b> wait in on-site cold storage.</li><li><b>Pre-qualify online</b> in a minute; it won't affect your credit score.</li></ul></div></div>
-    </div>
-    <div class="panel" role="tabpanel" id="p-office" aria-labelledby="tab-office" tabindex="0" hidden>
-      <div><h3>One bedroom, plus a room for the laptop.</h3><p>Three one-bedroom-with-office layouts from about 800 to 1,092 sq ft, from floor 3 up to 48.</p><ul class="mini"><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-w%2foffice-res-03-%26-07%3a-fl-3---48"><span class="mn-n">One bedroom + office<small>797–801 sq&nbsp;ft · Res 03 & 07 · floors 3–48</small></span><span class="mn-p">from $4,077</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-w%2foffice-res-06%3a-fl-3---6"><span class="mn-n">One bedroom + office<small>911 sq&nbsp;ft · Res 06 · floors 3–6</small></span><span class="mn-p">from $4,224</span></a></li><li><a href="https://www.65bay.com/floorplans/1-br-1-ba-w%2foffice-res-07%3a-fl-3---6"><span class="mn-n">One bedroom + office<small>1,092 sq&nbsp;ft · Res 07 · floors 3–6</small></span><span class="mn-p">from $4,913</span></a></li></ul></div>
-      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/3-65_bay_st_library_office_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/3-65_bay_st_library_office_staged.jpg 380w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/3-65_bay_st_library_office_staged.jpg 760w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/3-65_bay_st_library_office_staged.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="A home office with a desk, chair and shelves" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Discounted internet and cable</b> through the building's amenity services.</li><li><b>Coffee downstairs</b> at Maggie's Farm Espresso.</li><li><b>Workouts on site:</b> the fitness center, plus F45 and Cyclebar in the building.</li></ul></div></div>
-    </div>
-    <div class="panel" role="tabpanel" id="p-two" aria-labelledby="tab-two" tabindex="0" hidden>
-      <div><h3>Two bedrooms, two baths, up to 1,181 sq ft.</h3><p>Corner-stack two-bedrooms from floor 9 to 48. A playroom, a game room and a sports parlor are downstairs.</p><ul class="mini"><li><a href="https://www.65bay.com/floorplans/2-br-2-ba-res-04-%26-06%3a-fl-9---47"><span class="mn-n">Two bedroom, two bath<small>1,181 sq&nbsp;ft · Res 04 & 06 · floors 9–47</small></span><span class="mn-p">from $5,741</span></a></li><li><a href="https://www.65bay.com/floorplans/2-br-2-ba-res-06%3a-fl-48"><span class="mn-n">Two bedroom, two bath<small>1,133 sq&nbsp;ft · Res 06 · floor 48 · floors 48</small></span><span class="mn-p">from $6,443</span></a></li></ul></div>
-      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/1-65_bay_st_bedroom_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/1-65_bay_st_bedroom_staged.jpg 380w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/1-65_bay_st_bedroom_staged.jpg 760w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/1-65_bay_st_bedroom_staged.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="A bedroom with a large bed beside the windows" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Discounted covered parking</b> in the garage, with EV parking.</li><li><b>Resident and bicycle storage</b> on site.</li><li><b>Unfurnished only.</b> Bring your own pieces.</li></ul></div></div>
-    </div>
-    <div class="panel" role="tabpanel" id="p-dog" aria-labelledby="tab-dog" tabindex="0" hidden>
-      <div><h3>Cats and dogs welcome. Up to two.</h3><p>Every pet is pre-approved: house trained, with a recent veterinarian statement of good health and a photo. Some breeds are restricted, so ask before you apply.</p>
-        <ul class="mini"><li><a href="#faq"><span class="mn-n">Pet fee<small>One time, per pet, non-refundable</small></span><span class="mn-p">$500</span></a></li><li><a href="#faq"><span class="mn-n">Pet rent<small>Monthly, per pet</small></span><span class="mn-p">$50</span></a></li></ul></div>
-      <div class="side"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/shoootin-photo-2%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_380/s3/2/84594/shoootin-photo-2%281%29.jpg 380w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_760/s3/2/84594/shoootin-photo-2%281%29.jpg 760w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1520/s3/2/84594/shoootin-photo-2%281%29.jpg 1520w" sizes="(max-width: 980px) 90vw, 760px" width="760" height="570" alt="The indoor dog park with a white fence and green turf" loading="lazy" decoding="async"></figure><div class="good"><ul><li><b>Dog spa</b> for the muddy days.</li><li><b>Indoor dog park</b> when it's pouring.</li><li><b>The Hudson River Waterfront Walkway</b> is half a mile away.</li></ul></div></div>
-    </div>
-  </div>
-</section>
 
-<section class="film" id="film" aria-labelledby="filmH">
-  <div class="wrap">
-    <p class="eyebrow">Experience</p>
-    <h2 class="h2" id="filmH">Jersey City living, <em>from the pool deck up.</em></h2>
-    <div class="film-frame" id="filmFrame" data-vimeo="1177828601">
-      <figure class="ph film-poster"><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:9,w_1600/s3/2/84594/tbs_pool%20website.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:9,w_800/s3/2/84594/tbs_pool%20website.jpg 800w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:9,w_1600/s3/2/84594/tbs_pool%20website.jpg 1600w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:9,w_2400/s3/2/84594/tbs_pool%20website.jpg 2400w" sizes="(max-width: 980px) 90vw, 1600px" width="1600" height="686" alt="The pool at 65 Bay Street" loading="lazy" decoding="async"></figure>
-      <div class="film-shade" aria-hidden="true"></div>
-      <p class="film-cap">The pool deck at 65 Bay Street</p>
-    </div>
-  </div>
-  <div class="film-pad" aria-hidden="true"></div>
-</section>
 
-<section class="sec amen" id="amenities" aria-labelledby="amenH">
-  <div class="wrap">
-    <p class="eyebrow">Signature amenities</p>
-    <h2 class="h2" id="amenH">The rest of the building <em>is yours, too.</em></h2>
-    <div class="amen-grid">
-      <div class="plate"><div class="plate-in">
-        <p class="plate-top"><span>65 Bay · Residents</span><i aria-hidden="true"></i></p>
-        <div class="btns" role="tablist" aria-label="Amenities">
-          <button class="lbtn" role="tab" id="ab-roof" aria-controls="ap-roof" aria-selected="true"><span class="ring"><span class="face">R</span></span>Roof</button>
-          <button class="lbtn" role="tab" id="ab-pool" aria-controls="ap-pool" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">P</span></span>Pool deck</button>
-          <button class="lbtn" role="tab" id="ab-well" aria-controls="ap-well" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">W</span></span>Wellness</button>
-          <button class="lbtn" role="tab" id="ab-play" aria-controls="ap-play" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">G</span></span>Games &amp; play</button>
-          <button class="lbtn" role="tab" id="ab-dogs" aria-controls="ap-dogs" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">D</span></span>Dogs</button>
-          <button class="lbtn" role="tab" id="ab-desk" aria-controls="ap-desk" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">L</span></span>Lobby &amp; service</button>
-          <button class="lbtn" role="tab" id="ab-park" aria-controls="ap-park" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">B</span></span>Parking &amp; storage</button>
-          <button class="lbtn" role="tab" id="ab-shop" aria-controls="ap-shop" aria-selected="false" tabindex="-1"><span class="ring"><span class="face">S</span></span>Shops on site</button>
-        </div>
-      </div></div>
-      <div>
-        <div class="apanel" role="tabpanel" id="ap-roof" aria-labelledby="ab-roof" tabindex="0"><h3>Rooftop observation lounge</h3><p>An indoor lounge with an outdoor terrace at the top of the tower, with views up and down the Hudson.</p><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-16%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/shoootin-photo-16%281%29.jpg 450w, https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-16%281%29.jpg 900w, https://resource.rentcafe.com/image/upload/x_270,y_0,w_8100,h_5166,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/shoootin-photo-16%281%29.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The rooftop observation lounge with dark sofas and a large painting" loading="lazy" decoding="async"><figcaption>Roof lounge</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20views.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20views.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20views.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20views.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="A view from the building past a potted plant" loading="lazy" decoding="async"><figcaption>The view</figcaption></figure></div></div>
-        <div class="apanel" role="tabpanel" id="ap-pool" aria-labelledby="ab-pool" tabindex="0" hidden><h3>Pool deck</h3><p>A resort-style swimming pool and Jacuzzi with a pergola, plus a fire pit, BBQ grill and outdoor dining.</p><ul><li>Swimming pool &amp; Jacuzzi</li><li>Fire pit</li><li>BBQ grill</li><li>Outdoor dining</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_pool%20website.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/tbs_pool%20website.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_pool%20website.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/tbs_pool%20website.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The pool surrounded by lounge chairs and umbrellas" loading="lazy" decoding="async"><figcaption>Pool</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20pool%203%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20pool%203%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20pool%203%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20pool%203%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The pool deck with chairs and a pergola" loading="lazy" decoding="async"><figcaption>Pergola</figcaption></figure></div></div>
-        <div class="apanel" role="tabpanel" id="ap-well" aria-labelledby="ab-well" tabindex="0" hidden><h3>Wellness</h3><p>A fitness center with free weights, a wood-lined sauna and a spa treatment room.</p><ul><li>Fitness center</li><li>Free weights</li><li>Sauna</li><li>Spa treatment room</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/65%20bay%20fitness%20center%281%29.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The fitness center" loading="lazy" decoding="async"><figcaption>Fitness center</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20sauna%201%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20sauna%201%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20sauna%201%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20sauna%201%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The wood-lined sauna" loading="lazy" decoding="async"><figcaption>Sauna</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20massage.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20massage.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/65%20bay%20massage.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/65%20bay%20massage.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The spa treatment room" loading="lazy" decoding="async"><figcaption>Treatment room</figcaption></figure></div></div>
-        <div class="apanel" role="tabpanel" id="ap-play" aria-labelledby="ab-play" tabindex="0" hidden><h3>Games &amp; play</h3><p>A screening room, a sports parlor for the game, a pool table, and a playroom where the kids can draw on the walls (the whiteboard ones).</p><ul><li>Sports parlor</li><li>Screening room</li><li>Game room with pool table</li><li>Playroom</li><li>Resident lounges</li></ul><a class="tour" href="https://my.matterport.com/show/?m=WL6VeTAUFxF" target="_blank" rel="noopener">Walk the screening room in 3D <span aria-hidden="true">↗</span></a><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65baymcap001%281%29.jpeg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/65baymcap001%281%29.jpeg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/65baymcap001%281%29.jpeg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/65baymcap001%281%29.jpeg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The sports parlor with a large couch and TV" loading="lazy" decoding="async"><figcaption>Sports parlor</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/game%20room%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/game%20room%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/game%20room%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/game%20room%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The game room with a pool table" loading="lazy" decoding="async"><figcaption>Game room</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-10.jpg" srcset="https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/shoootin-photo-10.jpg 320w, https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-10.jpg 560w, https://resource.rentcafe.com/image/upload/x_0,y_994,w_7247,h_4766,c_crop/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/shoootin-photo-10.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The playroom with a whiteboard and blue walls" loading="lazy" decoding="async"><figcaption>Playroom</figcaption></figure></div></div>
-        <div class="apanel" role="tabpanel" id="ap-dogs" aria-labelledby="ab-dogs" tabindex="0" hidden><h3>Dogs</h3><p>A dog spa for baths and an indoor dog park for rainy days.</p><ul><li>Dog spa</li><li>Indoor dog park</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-2%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/shoootin-photo-2%281%29.jpg 450w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/shoootin-photo-2%281%29.jpg 900w, https://resource.rentcafe.com/image/upload/x_991,y_926,w_7649,h_4834,c_crop/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/shoootin-photo-2%281%29.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The indoor dog park with a white fence and green turf" loading="lazy" decoding="async"><figcaption>Indoor dog park</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-3%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/shoootin-photo-3%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-3%281%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/shoootin-photo-3%281%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="The dog spa with a pink cabinet and wash basin" loading="lazy" decoding="async"><figcaption>Dog spa</figcaption></figure></div></div>
-        <div class="apanel" role="tabpanel" id="ap-desk" aria-labelledby="ab-desk" tabindex="0" hidden><h3>Lobby &amp; service</h3><p>Someone is at the desk around the clock, and maintenance and management are in the building.</p><ul><li>24-hour attended lobby</li><li>Doorman services</li><li>Live-in superintendent</li><li>On-site management</li><li>On-site maintenance</li><li>On-site dry cleaning</li><li>Laundry facility</li><li>Online resident portal</li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_lobby.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/tbs_lobby.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_lobby.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/tbs_lobby.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="The lobby lounge with grey sofas, a fireplace and a chandelier" loading="lazy" decoding="async"><figcaption>Lobby</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-1%282%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/shoootin-photo-1%282%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_560/s3/2/84594/shoootin-photo-1%282%29.jpg 560w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1120/s3/2/84594/shoootin-photo-1%282%29.jpg 1120w" sizes="(max-width: 980px) 90vw, 560px" width="560" height="420" alt="A resident lounge with grey and gold accents" loading="lazy" decoding="async"><figcaption>Resident lounge</figcaption></figure></div></div>
-        <div class="apanel" role="tabpanel" id="ap-park" aria-labelledby="ab-park" tabindex="0" hidden><h3>Parking &amp; storage</h3><p>Discounted covered parking in the garage, EV parking, and room for the things that don't fit upstairs.</p><ul><li>Garage, discounted covered parking</li><li>EV parking</li><li>Resident storage</li><li>Bicycle storage</li><li>Cold storage for deliveries</li><li>Elevators</li></ul></div>
-        <div class="apanel" role="tabpanel" id="ap-shop" aria-labelledby="ab-shop" tabindex="0" hidden><h3>Shops on site</h3><p>Retail on the ground floor covers the daily errands.</p><ul><li><a href="https://www.cvs.com/store-locator/cvs-pharmacy-address/88+Morgan+Street-Jersey+City-NJ-07302/storeid=11088">CVS Pharmacy</a></li><li><a href="https://www.maggiesfarmespresso.com/">Maggie's Farm Espresso</a></li><li><a href="https://f45training.com/exchangeplacejerseycity/home">F45 Training</a></li><li><a href="https://www.cyclebar.com/location/jersey-city">Cyclebar</a></li><li><a href="https://www.coastalcleanersusa.com/">Coastal Cleaners</a></li></ul><div class="phs"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_hero%20night.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_450/s3/2/84594/tbs_hero%20night.jpg 450w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_900/s3/2/84594/tbs_hero%20night.jpg 900w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_16:10,w_1350/s3/2/84594/tbs_hero%20night.jpg 1350w" sizes="(max-width: 980px) 90vw, 900px" width="900" height="562" alt="65 Bay Street lit up at night" loading="lazy" decoding="async"><figcaption>65 Bay Street at night</figcaption></figure></div></div>
-      </div>
-    </div>
-    <div class="inhome">
-      <div><h3>Inside every home</h3><p class="lede" style="margin-top:var(--s2)">Standard finishes in the apartments. Some homes add a little more.</p></div>
-      <ul><li>Washer &amp; dryer</li><li>Walk-in closets</li><li>Hardwood plank flooring</li><li>Granite countertops</li><li>Energy-efficient stainless-steel appliances</li><li>Refrigerator with icemaker &amp; filtered water</li><li>Dishwasher</li><li>Recessed lighting</li><li>LED under-cabinet lighting</li><li>Window treatments</li><li>Floor-to-ceiling windows<i>select</i></li><li>Private patio<i>select</i></li><li>High ceilings<i>select</i></li></ul>
-    </div>
-    <div class="gal"><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/4-65_bay_st_living_dining_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/4-65_bay_st_living_dining_staged.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/4-65_bay_st_living_dining_staged.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/4-65_bay_st_living_dining_staged.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="An open kitchen with white cabinets and a large island" loading="lazy" decoding="async"><figcaption>Kitchen & living</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20kitchen%201.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20kitchen%201.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20kitchen%201.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20kitchen%201.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A kitchen with stainless-steel appliances" loading="lazy" decoding="async"><figcaption>Stainless appliances</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20living%205.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20living%205.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20living%205.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20living%205.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A living room with a white sofa and table" loading="lazy" decoding="async"><figcaption>Living room</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20bathroom%201.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20bathroom%201.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20bathroom%201.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20bathroom%201.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A white bathroom" loading="lazy" decoding="async"><figcaption>Bath</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/2-65_bay_st_closet_beauty_room_staged.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="A walk-in closet with shelves" loading="lazy" decoding="async"><figcaption>Walk-in closet</figcaption></figure><figure class="ph "><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_320/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg 320w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_640/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg 640w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_4:3,w_1280/s3/2/84594/65%20bay%20washer%20dryer%201%281%29.jpg 1280w" sizes="(max-width: 980px) 90vw, 640px" width="640" height="480" alt="An in-home washer and dryer" loading="lazy" decoding="async"><figcaption>Washer & dryer</figcaption></figure></div>
-  </div>
-</section>
 
-<section class="sec" id="neighborhood" aria-labelledby="nbH">
-  <div class="wrap">
-    <p class="eyebrow">Steps from downtown</p>
-    <h2 class="h2" id="nbH">Half a mile <em>to the PATH.</em></h2>
-    <p class="lede">65 Bay Street sits between Exchange Place and Grove Street, a few blocks from the river. Distances are from the front door.</p>
-    <div class="ruler" role="img" aria-label="Distances from 65 Bay Street: Exchange Place PATH 0.5 miles, Hudson River Waterfront Walkway 0.5 miles, Grove Street 1 mile, Liberty State Park 2.5 miles.">
-      <div class="ruler-track" aria-hidden="true">
-        <div class="ruler-line"></div>
-        <div class="tick" style="left:0"><span>0</span></div><div class="tick" style="left:20%"><span>0.5 mi</span></div><div class="tick" style="left:40%"><span>1</span></div><div class="tick" style="left:60%"><span>1.5</span></div><div class="tick" style="left:80%"><span>2</span></div><div class="tick" style="left:100%"><span>2.5 mi</span></div>
-        <div class="stop home" style="left:0"><b>65</b><span>Bay Street</span></div>
-        <div class="stop" style="left:20%"><b>0.5</b><span>Exchange Place PATH · Waterfront Walkway</span></div>
-        <div class="stop" style="left:40%"><b>1</b><span>Grove Street</span></div>
-        <div class="stop end" style="left:100%"><b>2.5</b><span>Liberty State Park</span></div>
-      </div>
-      <p class="ruler-off">Newark Liberty International Airport: about 11 mi →</p>
-    </div>
-    <figure class="ph wide"><img src="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_1600/s3/2/84594/tbs_view%201.jpg" srcset="https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_800/s3/2/84594/tbs_view%201.jpg 800w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_1600/s3/2/84594/tbs_view%201.jpg 1600w, https://resource.rentcafe.com/image/upload/q_auto,f_auto,c_fill,g_auto,ar_21:8,w_2400/s3/2/84594/tbs_view%201.jpg 2400w" sizes="(max-width: 980px) 90vw, 1600px" width="1600" height="610" alt="The Hudson River seen from 65 Bay Street" loading="lazy" decoding="async"><figcaption>The view across the Hudson</figcaption></figure>
-    <div class="nb-cards">
-      <div class="nb"><h3>Into Manhattan</h3><p>Exchange Place PATH is about a 7-minute ride to downtown Manhattan. NJ Transit Light Rail and buses are nearby, and Lower Manhattan is a short ferry ride away.</p></div>
-      <div class="nb"><h3>By car</h3><p>Quick access to I-78, the New Jersey Turnpike and Route 440, with discounted covered parking and EV parking in the building's garage.</p></div>
-      <div class="nb"><h3>On foot</h3><p>A Walk Score of 95. Paulus Hook and Grove Street boutiques, waterfront parks, and Newport Centre's Macy's, H&amp;M and Sephora.</p></div>
-    </div>
-    <div class="places">
-      <div><h3>Food &amp; drink</h3><ul><li>Battello</li><li>DOMODOMO Jersey City</li><li>Luna Restaurant</li><li>Porta</li><li>Razza</li><li>The Kitchen Step</li></ul></div>
-      <div><h3>Parks</h3><ul><li>Hamilton Park</li><li>J. Owen Grundy Park</li><li>Liberty State Park</li><li>Newport Green Park</li><li>Van Vorst Park</li><li>Lincoln Park</li></ul></div>
-      <div><h3>Shops</h3><ul><li>Newport Centre</li><li>Target</li><li>Acme Markets</li><li>ShopRite of Metro Plaza</li><li>Best Buy</li><li>BJ's Wholesale Club</li></ul></div>
-      <div><h3>Culture</h3><ul><li>Liberty Science Center</li><li>White Eagle Hall</li><li>Jersey City Theater Center</li><li>Nimbus Arts Center</li><li>AMC Newport Centre 11</li></ul></div>
-    </div>
-  </div>
-</section>
 
 <section class="sec faq" id="faq" aria-labelledby="faqH">
   <div class="wrap faq-grid">
@@ -2314,7 +2334,7 @@ html.ready .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(
   <div class="wrap">
     <div class="foot-top">
       <a class="brand" href="#top" aria-label="65 Bay Street, back to top"><svg viewBox="0.7 0.5 311.7 43.3" aria-hidden="true"><use href="#brand-logo"/></svg></a>
-      <ul><li><a href="#stack">Floors &amp; rents</a></li><li><a href="https://www.65bay.com/photogallery">Gallery</a></li><li><a href="#amenities">Amenities</a></li><li><a href="https://www.65bay.com/virtualtoursv2">Virtual tours</a></li><li><a href="#neighborhood">Neighborhood</a></li><li><a href="https://www.65bay.com/termsandconditions">Terms</a></li><li><a href="#visit">Visit</a></li><li><a href="https://www.65bay.com/privacypolicy">Privacy</a></li><li><a href="#faq">FAQ</a></li><li><a href="https://www.65bay.com/accessibility">Accessibility</a></li></ul>
+      <ul><li><a href="#view">Floors &amp; rents</a></li><li><a href="https://www.65bay.com/photogallery">Gallery</a></li><li><a href="#amenities">Amenities</a></li><li><a href="https://www.65bay.com/virtualtoursv2">Virtual tours</a></li><li><a href="#neighborhood">Neighborhood</a></li><li><a href="https://www.65bay.com/termsandconditions">Terms</a></li><li><a href="#visit">Visit</a></li><li><a href="https://www.65bay.com/privacypolicy">Privacy</a></li><li><a href="#faq">FAQ</a></li><li><a href="https://www.65bay.com/accessibility">Accessibility</a></li></ul>
     </div>
     <div class="foot-bot">
       <p class="eho"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 11h3v11h16V11h3z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 13h8M8 16.5h8" stroke="currentColor" stroke-width="1.6"/></svg>Equal Housing Opportunity</p>
@@ -2325,7 +2345,7 @@ html.ready .tower .tl{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(
 
 <nav class="tabbar" id="tabbar" aria-label="Quick actions">
   <a class="tb-logo" href="#top" style="--i:0" aria-label="65 Bay Street, back to top"><svg viewBox="-0.8 -0.8 39.8 25.8" aria-hidden="true"><use href="#brand-mark"/></svg></a>
-  <a class="tb-a" href="#stack" data-spy="stack" style="--i:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="1"/><path d="M6 8h12M6 13h12M10 21v-3h4v3"/></svg>Floors</a>
+  <a class="tb-a" href="#view" data-spy="view stack" style="--i:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="1"/><path d="M6 8h12M6 13h12M10 21v-3h4v3"/></svg>Floors</a>
   <a class="tb-a" href="#amenities" data-spy="amenities" style="--i:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><circle cx="12" cy="16" r="3.2"/><rect x="7" y="2.5" width="10" height="19" rx="3"/></svg>Amenities</a>
   <a class="tb-a" href="tel:+18559991087" style="--i:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 0 0 7 7L16 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>Call</a>
   <a class="tb-cta" href="#visit" style="--i:4"><span class="w">Book a&nbsp;</span><span class="n">tour</span></a>
@@ -2486,38 +2506,45 @@ document.getElementById('tour').addEventListener('submit',function(e){
 });
 
 /* ---------- scroll: tab bar spy ---------- */
-var spyLinks=[].slice.call(document.querySelectorAll('.tb-a[data-spy]')).map(function(a){return{a:a,s:document.getElementById(a.getAttribute('data-spy'))}});
+var spyLinks=[].slice.call(document.querySelectorAll('.tb-a[data-spy]')).map(function(a){return{a:a,s:a.getAttribute('data-spy').split(' ').map(function(id){return document.getElementById(id)})}});
 var ticking=false;
 function onScroll(){
   ticking=false;var line=innerHeight*.4,hit=null;
-  spyLinks.forEach(function(o){var r=o.s.getBoundingClientRect();if(r.top<=line&&r.bottom>line)hit=o});
+  spyLinks.forEach(function(o){o.s.forEach(function(s){var r=s.getBoundingClientRect();if(r.top<=line&&r.bottom>line)hit=o})});
   spyLinks.forEach(function(o){var on=o===hit;o.a.classList.toggle('on',on);if(on)o.a.setAttribute('aria-current','location');else o.a.removeAttribute('aria-current')});
 }
 addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});
 onScroll();
 
-/* ---------- pool film (Vimeo background player, loaded near view) ---------- */
-var film=document.getElementById('filmFrame'),filmOn=false;
-function fitFilm(){var f=film.querySelector('iframe');if(!f)return;var w=film.clientWidth,h=film.clientHeight;if(w/h>16/9){f.style.width=w+'px';f.style.height=Math.ceil(w*9/16)+'px'}else{f.style.height=h+'px';f.style.width=Math.ceil(h*16/9)+'px'}}
+/* ---------- hero video (the live site's Vimeo pool film) ---------- */
+var media=document.getElementById('heroMedia');
+function fitFilm(){var f=media.querySelector('iframe');if(!f)return;var w=media.clientWidth,h=media.clientHeight;if(w/h>16/9){f.style.width=w+'px';f.style.height=Math.ceil(w*9/16)+'px'}else{f.style.height=h+'px';f.style.width=Math.ceil(h*16/9)+'px'}}
 function loadFilm(){
-  if(filmOn||reduce)return;var r=film.getBoundingClientRect();if(r.top>innerHeight*1.6||r.bottom<-innerHeight)return;filmOn=true;
+  if(reduce||media.querySelector('iframe'))return;
   var f=document.createElement('iframe');f.title='Video: the pool at 65 Bay Street';f.allow='autoplay; fullscreen; picture-in-picture';f.tabIndex=-1;f.setAttribute('aria-hidden','true');
-  f.src='https://player.vimeo.com/video/'+film.getAttribute('data-vimeo')+'?background=1&autoplay=1&loop=1&muted=1&dnt=1';
-  f.style.opacity='0';f.style.transition='opacity 1.2s ease';f.addEventListener('load',function(){setTimeout(function(){f.style.opacity='1'},600)});
-  film.insertBefore(f,film.querySelector('.film-shade'));fitFilm();
+  f.src='https://player.vimeo.com/video/'+media.getAttribute('data-vimeo')+'?background=1&autoplay=1&loop=1&muted=1&dnt=1';
+  f.style.opacity='0';f.style.transition='opacity 1.2s ease';f.addEventListener('load',function(){setTimeout(function(){f.style.opacity='1'},700)});
+  media.appendChild(f);fitFilm();
 }
 addEventListener('resize',fitFilm);
-addEventListener('scroll',function(){if(!filmOn)requestAnimationFrame(loadFilm)},{passive:true});
-loadFilm();
+
+/* ---------- elevator ride when the view previewer comes on screen ---------- */
+var viewSec=document.getElementById('view'),rode=false;
+function checkView(){
+  if(rode)return;var r=viewSec.getBoundingClientRect();
+  if(r.top<innerHeight*.65&&r.bottom>innerHeight*.2){rode=true;viewSec.classList.add('go');
+    if(reduce){go(44,true)}else{cur=1;draw();setTimeout(function(){ride(1,44,2600)},650)}}
+}
+addEventListener('scroll',function(){if(!rode)requestAnimationFrame(checkView)},{passive:true});
 
 /* ---------- load sequence ---------- */
 var started=false,bar=document.getElementById('tabbar');
 function start(){
   if(started)return;started=true;root.classList.add('ready');
-  if(reduce){go(44,true);bar.classList.add('in');return}
-  cur=1;draw();
-  setTimeout(function(){ride(1,44,2600);},1500);
-  setTimeout(function(){bar.classList.add('in')},4300);
+  checkView();
+  if(reduce){bar.classList.add('in');return}
+  loadFilm();
+  setTimeout(function(){bar.classList.add('in')},1700);
 }
 draw();settle();cur=reduce?44:1;draw();
 var fontsReady=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
