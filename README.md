@@ -34,7 +34,7 @@ The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 
 - Proof band: $0 security deposit, 0.5 mi to Exchange Place PATH, Walk Score 95, 24-hour attended lobby.
 - Stacking plan: 49 floors × 10 residence lines built from the plan list, synced with the elevator's floor, plus eight plan cards (size, floors, rent range, units available, link to the existing floor plan page) that light up their homes in the tower.
 - "Who's moving in?" tabs (`role=tablist`, arrow/Home/End keys, `aria-selected`, `hidden` panels): Just me · I work from home · Room for two · My dog's coming. Hero chips open the matching tab.
-- Amenities as a copper elevator panel (a second tablist), "Inside every home," neighborhood mile ruler, transit and places, six FAQs, hours with today highlighted (New York time), and a tour request form.
+- Amenities as a bronze elevator panel (a second tablist), "Inside every home," neighborhood mile ruler, transit and places, six FAQs, hours with today highlighted (New York time), and a tour request form.
 - Mobile tab bar (≤980px): "65" monogram · Floors · Amenities · Call · **Book a tour** pill ("Tour" under 430px), with scroll-spy on Floors and Amenities. It rises after the elevator reaches floor 44, stays visible through the footer, and the footer is padded so it's never covered.
 
 ## Spacing & performance
