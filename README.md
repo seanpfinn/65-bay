@@ -8,9 +8,11 @@ A single-file concept homepage for **65bay.com**, the leasing site for 65 Bay St
 
 ## Concept
 
-**Pick your floor. The skyline comes with it.** In a high-rise, the floor is the product: it decides the view, the layouts on offer and the rent. So the hero is the tower drawn in copper line (the live logo file is named `65baystreet_logo_copper.png`) beside a floor-to-ceiling window. On load the elevator rides from the lobby to floor 44, and the view rises with it: the Jersey City rooftops sink out of the frame, the waterfront walkway passes, and the Hudson and the Manhattan skyline open up. Drag the car, use the arrow keys or the ▲▼ call buttons, and a readout lists the real floor plans on that floor with sizes and starting rents. L is the lobby, R is the roof lounge.
+**Pick your floor. The skyline comes with it.** In a high-rise, the floor is the product: it decides the view, the layouts on offer and the rent. So the hero is the tower drawn in the brand's bronze line beside a floor-to-ceiling window. On load the elevator rides from the lobby to floor 44, and the view rises with it: the Jersey City rooftops sink out of the frame, the waterfront walkway passes, and the Hudson and the Manhattan skyline open up. Drag the car, use the arrow keys or the ▲▼ call buttons, and a readout lists the real floor plans on that floor with sizes and starting rents. L is the lobby, R is the roof lounge.
 
-The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 03 & 07: FL 3 - 48"). The redesign decodes them into a **stacking plan**: floors 3–51 by residence line 01–10, colored by plan type, synced with the elevator, with each plan card able to light up its homes in the tower. The amenities are a copper elevator panel whose buttons light up, and the neighborhood is a mile ruler from the front door.
+The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 03 & 07: FL 3 - 48"). The redesign decodes them into a **stacking plan**: floors 3–51 by residence line 01–10, colored by plan type, synced with the elevator, with each plan card able to light up its homes in the tower. The amenities are a bronze elevator panel whose buttons light up, and the neighborhood is a mile ruler from the front door.
+
+**Carried over from the live brand:** the real "65 BAY STREET / JERSEY CITY" wordmark (traced from the live logo file), its bronze `#ac8152` and the site's navy `#1c3251`, the bronze band at the top of the page, and the site's type system: Adamina headings with italic Playfair Display lead-ins (the live site's "*Experience* Jersey City Living" pattern) and Roboto Condensed for everything else. Section lead-ins reuse the site's own phrases ("Welcome to," "Where every detail matters," "Signature amenities," "Steps from downtown," "Visit us today"). The "65" from the wordmark doubles as the monogram in the mobile tab bar and the app icons, and the window view is graded in the same navy and bronze.
 
 ## Audit summary (live site, November 2026)
 
@@ -33,19 +35,19 @@ The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 
 - Stacking plan: 49 floors × 10 residence lines built from the plan list, synced with the elevator's floor, plus eight plan cards (size, floors, rent range, units available, link to the existing floor plan page) that light up their homes in the tower.
 - "Who's moving in?" tabs (`role=tablist`, arrow/Home/End keys, `aria-selected`, `hidden` panels): Just me · I work from home · Room for two · My dog's coming. Hero chips open the matching tab.
 - Amenities as a copper elevator panel (a second tablist), "Inside every home," neighborhood mile ruler, transit and places, six FAQs, hours with today highlighted (New York time), and a tour request form.
-- Mobile tab bar (≤980px): 65 mark · Floors · Amenities · Call · **Book a tour** pill ("Tour" under 430px), with scroll-spy on Floors and Amenities. It rises after the elevator reaches floor 44, stays visible through the footer, and the footer is padded so it's never covered.
+- Mobile tab bar (≤980px): "65" monogram · Floors · Amenities · Call · **Book a tour** pill ("Tour" under 430px), with scroll-spy on Floors and Amenities. It rises after the elevator reaches floor 44, stays visible through the footer, and the footer is padded so it's never covered.
 
 ## Spacing & performance
 
 - Spacing tokens 8/12/16/24/32/48/64px, fluid section padding `clamp(64px,9vw,112px)`.
-- One `backdrop-filter` layer (sticky header), one rAF-throttled scroll handler using `getBoundingClientRect()` for scroll-spy, a pre-tinted SVG grain, no blend modes, and only the weights used (Bodoni Moda 400/500 + italic 400, Schibsted Grotesk 400–600, Azeret Mono 500). The elevator animates SVG transforms on four groups only. `content-visibility` isn't used.
+- One `backdrop-filter` layer (sticky header), one rAF-throttled scroll handler using `getBoundingClientRect()` for scroll-spy, a pre-tinted SVG grain, no blend modes, and only the weights used (Adamina 400, Playfair Display italic 400, Roboto Condensed 400–600). The elevator animates SVG transforms on four groups only. `content-visibility` isn't used.
 - Load sequence: header slides down → headline lines rise from masks → lede, CTAs, chips and trust row → the card springs in → the tower's linework draws → the elevator rides L → 44 as the view rises → tab bar rises last. Gated on `load` + `document.fonts.ready` + 250ms with a 4s fallback; reduced motion shows floor 44 at once; without JS everything is visible (the view sits at street level and the readout shows floor 44).
 - Plan cards and the tabs become snap-scrolling swipe rows on phones; the mile ruler scrolls sideways.
-- Verified at 1440, 390 and 360px: no page overflow, no console errors, tab bar visible at hero/mid-page/footer with and without reduced motion and hidden on desktop, exactly one selected tab-bar item in Floors and Amenities and none elsewhere, slider and tab keys working.
+- Verified at 1440, 390 and 360px: no page overflow, no layout shift while changing floors (the readout reserves its tallest state), no console errors, tab bar visible at hero/mid-page/footer with and without reduced motion and hidden on desktop, exactly one selected tab-bar item in Floors and Amenities and none elsewhere, slider and tab keys working.
 
 ## Notes before launch
 
-- **Logo:** the "65 / BAY STREET" wordmark is set from Bodoni Moda outlines in copper as a placeholder; the live copper logo couldn't be fetched from this environment. Replace the `<symbol id="brand-logo">` with the master vector and regenerate the icons.
+- **Logo:** the wordmark is traced from the live site's `65baystreet_logo_copper.png` (one `<symbol id="brand-logo">`, plus a `brand-mark` "65" monogram cut from it for the tab bar and icons). Replace both with the master vector if management has one, and regenerate the icons.
 - **No photos are used.** Amenity panels have labeled placeholder tiles. The building's own photo set (pool, sauna, lobby, roof lounge, game room) should go in once alt text is fixed; the stock gym photo should be replaced.
 - **The window view is an illustration**, not a rendering of the view from any specific home. Consider a real photo per floor band (low, mid, high) shot from the building.
 - **Rents are a snapshot** of the Availability page on Nov 22, 2026 and are labeled with that date. Wire the readout and cards to the RentCafe/Yardi feed before launch, or drop the figures.
@@ -62,6 +64,6 @@ The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 
 
 ## Social preview & metadata
 
-Beats: the card springs in and the tower draws in copper → the 65 mark and "Pick your floor. / The skyline / comes with it." rise → the elevator rides L → 44 as the rooftops sink and the skyline opens up → studio, one-bedroom and two-bedroom starting rents land → the mobile tab bar rises last, then holds. An address, no-deposit, PATH and phone ticker moves exactly 1px per frame (verified on the encoded file).
+Beats: the card springs in and the tower draws in bronze → the wordmark, "Welcome to 65 Bay Street" and "Pick your floor. / The skyline / comes with it." rise → the elevator rides L → 44 as the rooftops sink and the skyline opens up → studio, one-bedroom and two-bedroom starting rents land → the mobile tab bar rises last, then holds. An address, no-deposit, PATH and phone ticker moves exactly 1px per frame (verified on the encoded file).
 
 `og:url`, the canonical, OG/Twitter images, the video and JSON-LD all use the deploy URL, **https://65-bay-tan.vercel.app/**. At launch, find-and-replace that URL with `https://www.65bay.com/`.
