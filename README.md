@@ -16,7 +16,7 @@ The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 
 
 **Page order:** video hero → proof band → amenities → homes ("Who's moving in?") → neighborhood → floor previewer → stacking plan → FAQ → visit.
 
-**Carried over from the live brand:** the real "65 BAY STREET / JERSEY CITY" wordmark (traced from the live logo file), its bronze `#ac8152` and the site's navy `#1c3251`, the bronze band at the top of the page, and the site's type system: Adamina headings with italic Playfair Display lead-ins (the live site's "*Experience* Jersey City Living" pattern) and Roboto Condensed for everything else. Section lead-ins reuse the site's own phrases ("Welcome to," "Where every detail matters," "Signature amenities," "Steps from downtown," "Visit us today"). The "65" from the wordmark doubles as the monogram in the mobile tab bar and the app icons, and the window view is graded in the same navy and bronze.
+**Carried over from the live brand:** the real "65 BAY STREET / JERSEY CITY" wordmark (traced from the live logo file), its bronze `#ac8152` and the site's navy `#1c3251`, the bronze band at the top of the page, and the site's type system: Adamina headings with italic lead-ins (the live site's "*Experience* Jersey City Living" pattern; the site's Playfair Display is replaced with Source Serif 4 italic for legibility) and Roboto Condensed for everything else. Section lead-ins reuse the site's own phrases ("Welcome to," "Where every detail matters," "Signature amenities," "Steps from downtown," "Visit us today"). The "65" from the wordmark doubles as the monogram in the mobile tab bar and the app icons, and the window view is graded in the same navy and bronze.
 
 ## Audit summary (live site, November 2026)
 
@@ -48,10 +48,14 @@ The site's own plan names already encode the building ("1 BR 1 BA w/ Office Res 
 ## Spacing & performance
 
 - Spacing tokens 8/12/16/24/32/48/64px, fluid section padding `clamp(64px,9vw,112px)`.
-- One `backdrop-filter` layer (sticky header), one rAF-throttled scroll handler using `getBoundingClientRect()` for scroll-spy, a pre-tinted SVG grain, no blend modes, and only the weights used (Adamina 400, Playfair Display italic 400, Roboto Condensed 400–600). The elevator animates SVG transforms on four groups only. `content-visibility` isn't used.
+- One `backdrop-filter` layer (sticky header), one rAF-throttled scroll handler using `getBoundingClientRect()` for scroll-spy, a pre-tinted SVG grain, no blend modes, and only the weights used (Adamina 400, Source Serif 4 italic 500, Roboto Condensed 400–600). The elevator animates SVG transforms on four groups only. `content-visibility` isn't used.
 - Load sequence: header slides down → the pool poster settles in from a slight zoom → headline lines rise from masks → lede, CTAs and chips fade up → the video fades in over the poster → tab bar rises last. The elevator card, the tower's linework draw and the L → 44 ride play when the previewer section scrolls into view. Gated on `load` + `document.fonts.ready` + 250ms with a 4s fallback; reduced motion shows floor 44 at once; without JS everything is visible (the view sits at street level and the readout shows floor 44).
 - Phones: plan cards, the situation tabs, the hero chips, the neighborhood cards and the finishes gallery become snap-scrolling swipe rows; places and the finishes list run in two columns; the readout and plan rows fold size into the code line; the header drops its CTA (the tab bar carries it) and the hero drops the trust row (the proof band repeats it). Headings use `text-wrap: balance` and line-heights of 1.12–1.16. Adamina needs at least 1.11 for a descender to clear the next line's ascenders. The hero's reveal masks carry side and bottom padding for italic overhangs and descenders, and are released once the reveal finishes. Every vertical gap at 390px measures on the 8/12/16/24/32/48/64 scale, and the phone page went from about 13,600px to 11,400px tall.
 - Verified at 1440, 390 and 360px: no page overflow, no layout shift while changing floors (the readout reserves its tallest state), no console errors, tab bar visible at hero/mid-page/footer with and without reduced motion and hidden on desktop, exactly one selected tab-bar item in Floors and Amenities and none elsewhere, slider and tab keys working.
+
+## Pass: Nov 25 — Playfair removed
+
+- The italic lead-ins ("*Experience*", "Welcome to 65 Bay Street", section emphasis, the floor readout's ask line) moved from Playfair Display 400 to **Source Serif 4 italic 500**. Playfair's hairline strokes break up at 17–28px and over the hero video and navy panels; Source Serif keeps a similar bookish italic with sturdier strokes and an optical-size axis. Adamina headings and Roboto Condensed are unchanged. OG video re-cut.
 
 ## Notes before launch
 
